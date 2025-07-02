@@ -1,8 +1,8 @@
 const inputfield = document.querySelector(".wrapper .input-field");
 const typingtext = document.querySelector(".typing-text p");
-const timeleft = document.querySelector(".time-left span b");
-const mistake = document.querySelector(".mistakes span b");
-const WPM = document.querySelector(".WPM span");
+const timeleft = document.querySelector(".time-left span");
+const mistake = document.querySelector(".mistake span");
+const WPM = document.querySelector(".wpm span");
 const CPM = document.querySelector(".CPM span");
 const btn = document.querySelector(".btn");
 
@@ -10,7 +10,7 @@ let timer;
 let maxtime = 60;
 let timelft = maxtime;
 let mistakes = 0;
-let charIndex = 0;  
+let charIndex = 0;
 let istyping = false;
 
 function loadparagraph() {
@@ -23,28 +23,76 @@ function loadparagraph() {
 
         "As the clock struck midnight, the library came alive with whispers of the past. Ancient books glowed faintly, and the spirits of old scholars roamed the aisles, eager to share their knowledge with those brave enough to listen.",
 
-        "He stood alone at the edge of the cliff, the ocean crashing below like a thunderous applause for his courage. The wind tugged at his coat, but he stood firm—because sometimes, letting go is the first step to becoming who you're meant to be."
+        "He stood alone at the edge of the cliff, the ocean crashing below like a thunderous applause for his courage. The wind tugged at his coat, but he stood firm—because sometimes, letting go is the first step to becoming who you're meant to be.",
+
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     ];
-    const random =Math.floor( Math.random()*(paragraphs.length));
+    const random = Math.floor(Math.random() * (paragraphs.length));
     typingtext.innerHTML = '';
-    for(const char of paragraphs[random]){
+    for (const char of paragraphs[random]) {
         typingtext.innerHTML += `<span>${char}</span>`;
     }
     typingtext.querySelectorAll('span')[0].classList.add('active');
 }
 
-function initTyping(){
+function initTyping() {
     const char = typingtext.querySelectorAll('span');
-    const typedchar = input.value.charAt(charIndex)
+    const typedchar = inputfield.value.charAt(charIndex)
 
-    if (charIndex < char.length && timelft >0) {
+    if (charIndex < char.length && timelft > 0) {
+
+        if (!istyping) {
+            timer = setInterval(initime, 1000)
+            istyping = true;
+        }
+
         if (char[charIndex].innerText === typedchar) {
             char[charIndex].classList.add('correct');
-                 
         }
+        else {
+            mistakes++;
+            char[charIndex].classList.add('incorrect');
+        }
+        mistake.innerText = mistakes
+        charIndex++;
+        char[charIndex].classList.add('active');
+    }
+    else {
+
     }
 }
 
-inputfield.addEventListener("input",initTyping);
+function initime() {
+    if (timelft > 0) {
+        timelft--;
+        timeleft.innerText = timelft;
+        const wpmval = Math.round(((charIndex - mistakes) / 5) / (maxtime - timelft) * 60)
+        WPM.innerText = wpmval
+        const cpmval = charIndex - mistakes;
+        CPM.innerText = cpmval
+    }
+    else {
+        clearInterval(timer);
+        inputfield.value = '';
+    }
+}
+
+function reset() {
+    loadparagraph();
+    clearInterval(timer);
+    timelft = maxtime;
+    mistakes = 0;
+    charIndex = 0;
+    istyping = false;
+    inputfield.value = '';
+    timeleft.innerText = timelft;
+    WPM.innerText = 0;
+    CPM.innerText = 0;
+    mistake.innerText = 0;
+
+}
+
+inputfield.addEventListener("input", initTyping);
+btn.addEventListener("click", reset);
 
 loadparagraph();
