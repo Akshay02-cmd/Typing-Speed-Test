@@ -15,6 +15,17 @@ body{
     background: orange;
 }
 
+.input-field{
+    width: 100%;
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+}
+
+.typing-text{
+    padding: 0px 0px 17px 0px;
+}
+
 .wrapper{
     width: 770px;
     padding: 15px;
@@ -27,29 +38,26 @@ body{
     list-style: none;
     justify-content: space-between;
     display: flex;
-}
-
-.input-field{
-    width: 100%;
-    padding: 7px;
-    border-radius: 10px;
-    border: none;
-}
-
-.typing-text{
-    padding: 0px 0px 17px 0px;
-
-}
-
-.result-detail{
-    display: flex;
     flex: 1;
+}
+
+.content{
+    display: flex;
     justify-content: space-around;
+    padding-top: 17px;
+    align-items: center;
+    align-content: center;
+    border-top: 1px solid #bfbfbf;
 }
 
 .result-detail li{
     display: flex;
     justify-content: space-between;
+}
+
+.content-box{
+    border: 1px solid #bfbfbf;
+    padding: 17px;
 }
 
 .btn{
@@ -69,16 +77,10 @@ body{
     transform: scale(0.976);
 }
 
-.content-box{
-    border: 1px solid #bfbfbf;
-    padding: 17px;
+.typing-text p span {
+    position: relative;
 }
 
-.content{
-    display: flex;
-    justify-content: space-around;
-    padding-top: 17px;
-    align-items: center;
-    align-content: center;
-    border-top: 1px solid #bfbfbf;
+.typing-text p span.active{
+    color: orange;
 }
