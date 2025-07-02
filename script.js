@@ -38,8 +38,9 @@ function initTyping(){
     const typedchar = input.value.charAt(charIndex)
 
     if (charIndex < char.length && timelft >0) {
-        if (char[charIndex]) {
-            
+        if (char[charIndex].innerText === typedchar) {
+            char[charIndex].classList.add('correct');
+                 
         }
     }
 }
